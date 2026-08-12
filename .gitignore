@@ -1,0 +1,22 @@
+# Build directory
+build/
+
+# Docs directory
+docs/
+
+# Object files
+*.o
+
+# Dependency files
+*.d
+
+# Executables
+my_clt
+*.exe
+
+# VS Code
+.vscode/
+
+# Temporary files
+*.out
+*.log
