@@ -1,5 +1,4 @@
 #include "output.hpp"
-#include "core.hpp"
 #include <iostream>
 
 namespace fs = std::filesystem;
