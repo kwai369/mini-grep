@@ -5,7 +5,7 @@
 Config parse_arguments(int argc, char* argv[]) {
     Config config;
 
-    if (argc < 3) {
+    if (argc < 2) {
         throw std::invalid_argument("Usage: grep [-r] <pattern> <file1> [file2 ...]");
     }
 
@@ -15,8 +15,7 @@ Config parse_arguments(int argc, char* argv[]) {
         std::string_view flag = argv[index];
         if (flag == "-r"){
             config.recursive = true;
-        }
-        else {
+        } else {
             throw std::invalid_argument("Error: Unknown flag: " + std::string(flag));
         }
         index++;
@@ -41,10 +40,6 @@ Config parse_arguments(int argc, char* argv[]) {
         if (!path_arg.empty()) {
             config.target_paths.push_back(path_arg);
         }
-    }
-
-    if (config.target_paths.empty()) {
-        throw std::invalid_argument("Error: No valid target paths provided");
     }
 
     return config;

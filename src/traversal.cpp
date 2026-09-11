@@ -13,14 +13,12 @@ std::vector<fs::path> collect_files(const fs::path& target_path, bool recursive)
 
     if (fs::is_regular_file(target_path)) {
         files.push_back(target_path);
-    }
-    else if (fs::is_directory(target_path)) {
+    } else if (fs::is_directory(target_path)) {
         if (recursive) {
             for (const auto& entry : fs::recursive_directory_iterator(target_path)) 
                 if (fs::is_regular_file(entry.path()))
                     files.push_back(entry.path()); 
-        }
-        else {
+        } else {
             for (const auto& entry : fs::directory_iterator(target_path))
                 if(fs::is_regular_file(entry.path()))
                     files.push_back(entry.path());

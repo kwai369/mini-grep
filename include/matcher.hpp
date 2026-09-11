@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <filesystem>
+#include <iosfwd> // std::istream - a reference param only needs the forward declaration
 
 struct Match {
     int linenumber;
     std::string linecontent;
 };
 
-// Search a single file for the pattern, returning all matching lines.
-std::vector<Match> find_matches(const std::filesystem::path& filepath, const std::string& pattern);
+// Search any input stream for the pattern, returning all matching lines.
+std::vector<Match> find_matches(std::istream& input, const std::string& pattern);

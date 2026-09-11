@@ -1,8 +1,6 @@
 #include "output.hpp"
 #include <iostream>
 
-namespace fs = std::filesystem;
-
 void output_formatter(const std::vector<FileResult>& formatter) {
     for(const auto& file: formatter) {
         std::cout << "\n---- Matches found in: " << file.path << " ----\n"; 
