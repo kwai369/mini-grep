@@ -23,4 +23,3 @@ std::vector<FileResult> process_path(const fs::path& target_path, const std::str
     
     return result;
 }
-
