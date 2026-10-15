@@ -9,6 +9,7 @@ A simplified implementation of the Linux `grep` utility written in modern C++.
 - Case-insensitive search
 - Search multiple files
 - Line numbers in output
+- Standard input search; connected via pipes
 
 ## Project Structure
 
@@ -23,14 +24,18 @@ project/
 ├── include/
 │   ├── cli.hpp
 │   ├── core.hpp
-│   ├── output.hpp
+│   ├── matcher.hpp
+│   └── output.hpp
+│   ├── traversal.hpp
 │   └── utils.hpp
-│
+|
 ├── src/
 │   ├── cli.cpp
 │   ├── core.cpp
 │   ├── main.cpp
-│   ├── output.cpp
+│   ├── matcher.cpp
+│   └── output.cpp
+│   ├── traversal.cpp
 │   └── utils.cpp
 │
 └── text.txt
@@ -62,14 +67,20 @@ build/my_clt
 Search a file:
 
 ```bash
-./build/my_clt grep hello <file_path>
+./build/my_clt <pattern> <file_path>
 ```
 
 Search recursively through a directory:
 
 ```bash
-./build/my_clt grep -r hello <directory_name>
+./build/my_clt -r <pattern> <directory_name>
 ```
+Search from standard input:
+
+```bash
+<command> | ./build/my_clt <pattern>
+```
+
 
 ## Cleaning the Build
 
@@ -79,7 +90,6 @@ make clean
 
 ## Future Improvements
 
-- Improve command-line argument parsing
 - Add support for more grep flags
 - Add regular expression support
 - Add unit tests
