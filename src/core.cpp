@@ -9,7 +9,8 @@ namespace fs = std::filesystem;
 std::vector<FileResult> process_path(const fs::path& target_path, const std::string& pattern, bool recursive) {
     std::vector<FileResult> result;
 
-    for (const auto& file : collect_files(target_path, recursive)) {
+    FileList list = collect_files(target_path, recursive);
+    for (const auto& file : list.files) {
         std::ifstream inputfile(file);
         if (!inputfile.is_open()) {
             std::cerr << "Error: Failed to open file " << file.string() << "\n";
