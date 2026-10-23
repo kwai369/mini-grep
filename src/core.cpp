@@ -6,19 +6,22 @@
 
 namespace fs = std::filesystem;
 
-std::vector<FileResult> process_path(const fs::path& target_path, const std::string& pattern, bool recursive) {
-    std::vector<FileResult> result;
+SearchResult process_path(const fs::path& target_path, const std::string& pattern, bool recursive) {
+    SearchResult result;
 
     FileList list = collect_files(target_path, recursive);
+    result.had_error = list.had_error;
+    
     for (const auto& file : list.files) {
         std::ifstream inputfile(file);
         if (!inputfile.is_open()) {
-            std::cerr << "Error: Failed to open file " << file.string() << "\n";
+            std::cerr << "my_clt: " << file.string() << ": cannot open file\n";
+            result.had_error = true; 
             continue;
         }
         std::vector<Match> matches = find_matches(inputfile, pattern);
         if (!matches.empty()) {
-            result.push_back({file.string(), std::move(matches)});
+            result.files.push_back({file.string(), std::move(matches)});
         }
     }
     
