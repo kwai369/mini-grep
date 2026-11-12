@@ -3,6 +3,7 @@
 #include <vector>
 #include <filesystem>
 #include "matcher.hpp"
+#include "options.hpp"
 
 struct FileResult {
     std::string path;
@@ -15,4 +16,4 @@ struct SearchResult {
 };
 
 // Orchestrates traversal + matching for a target path.
-SearchResult process_path(const std::filesystem::path& target_path, const std::string& pattern, bool recursive);
+SearchResult process_path(const std::filesystem::path& target_path, const std::string& pattern, const SearchOptions& options, bool recursive);

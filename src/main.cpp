@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
         // Execution Logic (Core Module)
         if (config.target_paths.empty()) {
             // No files given read from standard input.
-            std::vector<Match> matches = find_matches(std::cin, config.pattern);
+            std::vector<Match> matches = find_matches(std::cin, config.pattern, config.search);
             if (!matches.empty()) {
                 any_match = true;
                 std::vector<FileResult> results;
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
         } else{
             // If target path is given iterate through the paths.
             for (const auto& path : config.target_paths) {
-                SearchResult results = process_path(path, config.pattern, config.recursive);
+                SearchResult results = process_path(path, config.pattern, config.search, config.recursive);
                 if(results.had_error) any_error = true;
                 if(!results.files.empty()) any_match = true;
                 output_formatter(results.files); 

@@ -1,5 +1,4 @@
 #include "cli.hpp"
-#include "utils.hpp"
 #include <stdexcept>
 
 Config parse_arguments(int argc, char* argv[]) {
@@ -13,7 +12,7 @@ Config parse_arguments(int argc, char* argv[]) {
     
     while (index < argc && argv[index][0] == '-') {
         std::string_view flag = argv[index];
-        if (flag == "-r"){
+        if (flag == "-r") {
             config.recursive = true;
         } else {
             throw std::invalid_argument("Error: Unknown flag: " + std::string(flag));
@@ -25,13 +24,11 @@ Config parse_arguments(int argc, char* argv[]) {
         throw std::invalid_argument("Error: No pattern provided");
     }
 
-
     config.pattern = argv[index];
     if (config.pattern.empty()) {
         throw std::invalid_argument("Error: Empty patterns are not allowed");
     }
     
-    to_lowercase(config.pattern); // Standardizing input via utils
     index++;
 
     // Collect all target paths

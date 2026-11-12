@@ -6,7 +6,7 @@
 
 namespace fs = std::filesystem;
 
-SearchResult process_path(const fs::path& target_path, const std::string& pattern, bool recursive) {
+SearchResult process_path(const fs::path& target_path, const std::string& pattern, const SearchOptions& options, bool recursive) {
     SearchResult result;
 
     FileList list = collect_files(target_path, recursive);
@@ -19,7 +19,7 @@ SearchResult process_path(const fs::path& target_path, const std::string& patter
             result.had_error = true; 
             continue;
         }
-        std::vector<Match> matches = find_matches(inputfile, pattern);
+        std::vector<Match> matches = find_matches(inputfile, pattern, options);
         if (!matches.empty()) {
             result.files.push_back({file.string(), std::move(matches)});
         }
