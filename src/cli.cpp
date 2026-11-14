@@ -5,19 +5,30 @@ Config parse_arguments(int argc, char* argv[]) {
     Config config;
 
     if (argc < 2) {
-        throw std::invalid_argument("Usage: grep [-r] <pattern> <file1> [file2 ...]");
+        throw std::invalid_argument("Usage: grep [-r] [-i] [--] <pattern> <file1> [file2 ...]");
     }
 
     int index = 1;
     
-    while (index < argc && argv[index][0] == '-') {
-        std::string_view flag = argv[index];
-        if (flag == "-r") {
-            config.recursive = true;
-        } else {
-            throw std::invalid_argument("Error: Unknown flag: " + std::string(flag));
+    while (index < argc) {
+        std::string_view arg = argv[index];
+
+        if (arg == "--") {
+            ++index;
+            break;
         }
-        index++;
+        if (arg.size() < 2 || arg[0] != '-') {
+            break;
+        }
+
+        if (arg == "-r") {
+            config.recursive = true;
+        } else if (arg == "-i") {
+            config.search.ignore_case = true;
+        } else {
+            throw std::invalid_argument("Error: Unknown flag: " + std::string(arg));
+        }
+        ++index;
     }
 
     if (index >= argc) {
